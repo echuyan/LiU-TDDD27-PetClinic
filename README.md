@@ -15,7 +15,7 @@ The project aims to create the veterinary clinic web portal.
 - 1.3 Doctors can search for and view pets information, make appointments, create new health records.
 - 1.4 Administrators are considered to be both system administrators (thus they can create new doctors profile and grant them access) and clinic admins (create new pets/owners, appointments, bills, etc). In real life those would be two different roles, so this is just a simplification.
 - 1.5 Some of the events should generate notification emails (e.g. new appointment).
-- "#F00" 1.6 -only if have time- Possibility of conducting a video call between a doctor and an owner.
+- [- red text -] 1.6 -only if have time- Possibility of conducting a video call between a doctor and an owner.
 
 ## Technical Specification
 2.1 Frontend: React.js

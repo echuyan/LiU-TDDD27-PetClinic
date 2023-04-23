@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "tddd27_2023_vetportal",
+    "slug": "tddd27_2023_vetportal",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "tddd27_2023_vetportal"
+}

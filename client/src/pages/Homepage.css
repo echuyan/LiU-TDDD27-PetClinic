@@ -1,0 +1,35 @@
+#background{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%; 
+    height: 400px; 
+  
+    background-size: 100%;
+    
+}
+
+#background button{
+    margin-top: 20px; 
+    color: white; 
+    height: 50px; 
+}
+
+#input-field{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+
+#userprofile{
+    align-items: left;
+    height: 25%;
+    width: 25%;
+}
+
+#globaldiv{
+    display: flex;
+}

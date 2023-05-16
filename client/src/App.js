@@ -9,15 +9,18 @@ import SignUp from "./pages/SignUp.js";
 import LogIn from "./pages/LogIn.js";
 import Footer from "./pages/Footer.js";
 import AddPet from  "./pages/AddPet.js";
-//import OwnersPage from  "./pages/OwnersPage.js";
-//<Route path="/OwnersPage" element={<OwnersPage />} />
+import OwnersPage from  "./pages/OwnersPage.js";
+import AdminsPage from  "./pages/AdminsPage.js";
+import DoctorsPage from  "./pages/DoctorsPage.js";
 
 // CSS-files
 import "./App.css";
 import "./pages/Homepage.css";
 import "./pages/SignUp.css";
-//import "./pages/OwnersPage.css";
+import "./pages/OwnersPage.css";
 import "./pages/AddPet.css";
+import "./pages/DoctorsPage.css";
+import "./pages/AdminsPage.css";
 
 
 function App() {
@@ -28,9 +31,10 @@ function App() {
         <div className="App">
           <Nav />
           <Routes>
-            <Route path="/" element={<Homepage />} />
+           
             <Route path="/LogIn" element={<LogIn />} />
             <Route path="/SignUp" element={<SignUp />} />
+           
             <Route
               path="*"
               element={
@@ -54,8 +58,9 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Homepage />} />
-              
-              
+              <Route path="/OwnersPage" element={<OwnersPage />} />
+              <Route path="/DoctorsPage" element={<DoctorsPage />} />
+              <Route path="/AdminsPage" element={<AdminsPage />} />
               <Route
                 path="*"
                 element={

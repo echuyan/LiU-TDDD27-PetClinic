@@ -86,12 +86,8 @@ function Nav() {
         </button>
         <div id="navMainMenu" className="navbar-collapse collapse">
           <div className="navbar-nav ml-auto">
-            <Link to="/" className="nav-item nav-link">
-              Home
-            </Link>
-            <Link to="/OwnerPage" className="nav-item nav-link">
-              Owner page
-            </Link>
+       
+            
             <Link
               to="/"
               className="nav-item nav-link"

@@ -25,12 +25,50 @@ export const LogIn = (props) => {
         if (data.auth) {
           sessionStorage.setItem("token", data.token);
           sessionStorage.setItem("email", data.email);
-         
-          navigate("/", {
-            state: {
-              id: data.email,
-            },
-          });
+          sessionStorage.setItem("firstname", data.firstname);
+          sessionStorage.setItem("familyname", data.familyname);
+          sessionStorage.setItem("phone", data.phone);
+          sessionStorage.setItem("email", data.email);
+          sessionStorage.setItem("email", data.email);
+          console.log(data.role);
+          switch (data.role) {
+            case 1:
+              navigate("/AdminsPage", {
+                state: {
+                  id: data.email,
+                },
+              });
+              break;
+            case 2:
+              navigate("/OwnersPage", {
+                state: {
+                  id: data.email,
+                },
+              });
+              break;
+            case 3:
+              navigate("/DoctorsPage", {
+                state: {
+                  id: data.email,
+                },
+              });
+              break;
+            default:
+              navigate("/", {
+                state: {
+                  id: data.email,
+                },
+              });
+          }
+          
+
+
+
+          
+
+
+
+
           window.location.reload();
         } else if (!data.auth) {
           alert("Wrong password try again.");

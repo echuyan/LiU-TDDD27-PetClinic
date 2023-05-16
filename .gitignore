@@ -25,7 +25,8 @@ env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+my_app_err*
+my_app_log*
 
 # Ignore database
 #database
-/db.sqlite

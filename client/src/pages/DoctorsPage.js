@@ -8,7 +8,7 @@ import pic2 from "../static/ElC_happy_scottish_terrier.png";
 import pic3 from "../static/ElC_happy_scottish_terrier_dog.png";
 
 // Creates the homepage of the application
-function Homepage() {
+function DoctorsPage() {
  
   const navigate = useNavigate();
 
@@ -18,9 +18,9 @@ function Homepage() {
     const element = document.getElementById("Welcome-header");
     if (sessionStorage.getItem("email") !== null) {
       if (element !== null) {
-        element.textContent = "Welcome. We are here to help you.";
+        element.textContent = "DOCTOR";
       }
-      return "Add a new pet";
+      return "Make an appointment";
     } else {
       if (element !== null) {
         element.textContent = "Welcome. We are here to help you.";
@@ -33,7 +33,7 @@ function Homepage() {
   function buttonAction() {
    
     if (sessionStorage.getItem("email") !== null) {
-      navigate("/AddPet");
+      navigate("/MakeAppointment");
     } else {
       navigate("/LogIn");
     }
@@ -45,7 +45,7 @@ if (sessionStorage.getItem("token")) {
   return (
     <div id="globaldiv">
     <div id="background">
-      <h3 id="Welcome-header">Welcome. We are here to help you.</h3>
+      <h3 id="Welcome-header">Hi, Doctor</h3>
       <h4>{sessionStorage.getItem("email")}</h4>
       <button className="btn btn-info" onClick={() => buttonAction()}>
         {" "}
@@ -58,11 +58,17 @@ if (sessionStorage.getItem("token")) {
           <div className="col-md-6">
             <div id="userprofile">
               <img src={profileImg} alt="User Profile" width={400}/>
-              <p>Hello, Name</p>
+              <p>Hello, Doctor Name</p>
               <p>email</p>
             </div>
           </div>
-          
+          <div className="col-md-6">
+            <div id="myschedule">
+              
+              <p>My schedule</p>
+              <p>for this week</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -72,4 +78,4 @@ if (sessionStorage.getItem("token")) {
 } 
 }
 
-export default Homepage;
+export default DoctorsPage;

@@ -43,6 +43,7 @@ export const LogIn = (props) => {
               navigate("/OwnersPage", {
                 state: {
                   id: data.email,
+
                 },
               });
               break;
@@ -60,15 +61,7 @@ export const LogIn = (props) => {
                 },
               });
           }
-          
-
-
-
-          
-
-
-
-
+      
           window.location.reload();
         } else if (!data.auth) {
           alert("Wrong password try again.");

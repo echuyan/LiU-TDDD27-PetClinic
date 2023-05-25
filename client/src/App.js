@@ -12,6 +12,7 @@ import AddPet from  "./pages/AddPet.js";
 import OwnersPage from  "./pages/OwnersPage.js";
 import AdminsPage from  "./pages/AdminsPage.js";
 import DoctorsPage from  "./pages/DoctorsPage.js";
+import ChangePet from  "./pages/ChangePet.js";
 
 // CSS-files
 import "./App.css";
@@ -21,6 +22,7 @@ import "./pages/OwnersPage.css";
 import "./pages/AddPet.css";
 import "./pages/DoctorsPage.css";
 import "./pages/AdminsPage.css";
+import "./pages/ChangePet.css";
 
 
 function App() {
@@ -61,6 +63,7 @@ function App() {
               <Route path="/OwnersPage" element={<OwnersPage />} />
               <Route path="/DoctorsPage" element={<DoctorsPage />} />
               <Route path="/AdminsPage" element={<AdminsPage />} />
+              <Route path="/ChangePet/:petId" element={<ChangePet />} />
               <Route
                 path="*"
                 element={

@@ -13,7 +13,7 @@ import OwnersPage from  "./pages/OwnersPage.js";
 import AdminsPage from  "./pages/AdminsPage.js";
 import DoctorsPage from  "./pages/DoctorsPage.js";
 import ChangePet from  "./pages/ChangePet.js";
-
+import ChangeInfo from  "./pages/ChangeInfo.js";
 // CSS-files
 import "./App.css";
 import "./pages/Homepage.css";
@@ -64,6 +64,7 @@ function App() {
               <Route path="/DoctorsPage" element={<DoctorsPage />} />
               <Route path="/AdminsPage" element={<AdminsPage />} />
               <Route path="/ChangePet/:petId" element={<ChangePet />} />
+              <Route path="/ChangeInfo/:email" element={<ChangeInfo />} />
               <Route
                 path="*"
                 element={

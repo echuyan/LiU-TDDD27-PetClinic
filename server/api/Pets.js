@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../database");
+const multer = require("multer");
+const path = require("path");
+const bodyParser = require("body-parser");
 
+router.use(bodyParser.json()); 
 
-
-router.post("/Pets/GetPet", async (req, res) => {
+router.get("/Pets/GetPet/:petId", async (req, res) => {
   console.log(req);
-  const id = req.body.petId;
+  const id = req.params.petId;
   console.log(id);
   const sql = "SELECT * FROM pets WHERE id = ?";
   const getPet = await db.getAsync(sql, id);
@@ -18,12 +21,47 @@ router.post("/Pets/GetPet", async (req, res) => {
     });
   } else {
     res.json({
-       user: getPet, 
+       pet: getPet, 
     });
       }
 
   });
 
-    
 
-module.exports = router;
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, "../../client/src/static")); 
+    },
+    filename: (req, file, cb) => {
+      fileName = `/${file.originalname}`;
+      cb(null, fileName);
+    },
+  });
+  
+  const upload = multer({ storage });
+
+  router.post("/Pets/UpdatePet", upload.single("photo"), async (req, res) => {
+    const id = req.body.petId;
+    const name = req.body.name;
+    const species = req.body.species;
+    const dateOfBirth = req.body.dateOfBirth;
+    const photo =  req.file ? req.file.filename : null;
+    const sql = "UPDATE pets SET name = ?, species = ?, dateOfBirth = ?, photo = ? WHERE id = ?";
+  
+    try {
+      await db.runAsync(sql, [name, species, dateOfBirth, photo, id]);
+  
+      res.json({ message: "Pet updated successfully" });
+    } catch (error) {
+      console.error("Error updating pet:", error);
+      res.status(500).json({ error: "Failed to update pet", detailedError: error.message });
+    }
+  });
+  
+  // Error handling middleware
+  router.use((err, req, res, next) => {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal Server Error", detailedError: err.message });
+  });
+
+  module.exports = router;

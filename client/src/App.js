@@ -22,7 +22,7 @@ import "./pages/OwnersPage.css";
 import "./pages/AddPet.css";
 import "./pages/DoctorsPage.css";
 import "./pages/AdminsPage.css";
-import "./pages/ChangePet.css";
+//import "./pages/ChangePet.css";
 
 
 function App() {

@@ -33,7 +33,7 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
       cb(null, path.join(__dirname, "../../client/src/static")); 
     },
     filename: (req, file, cb) => {
-      fileName = `/${file.originalname}`;
+      const fileName = `/${Date.now()}_${file.originalname}`;
       cb(null, fileName);
     },
   });
@@ -55,6 +55,33 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
     } catch (error) {
       console.error("Error updating pet:", error);
       res.status(500).json({ error: "Failed to update pet", detailedError: error.message });
+    }
+  });
+
+  router.use((err, req, res, next) => {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal Server Error", detailedError: err.message });
+  });
+
+
+  router.post("/Pets/AddPet", upload.single("photo"), async (req, res) => {
+    const id = req.body.email;
+    const name = req.body.name;
+    const species = req.body.species;
+    const dateOfBirth = req.body.dateOfBirth;
+    const photo =  req.file ? req.file.filename : null;
+    const sql1 = "SELECT id FROM users WHERE email = ?";
+    const getOwner = await db.getAsync(sql1, id);
+
+    const sql = "INSERT INTO pets (name,ownerid,species,dateofbirth,isarchived,photo) VALUES (?,?,?,?,?,?)";
+  
+    try {
+      await db.runAsync(sql, [name,getOwner.id, species, dateOfBirth,0, photo]);
+  
+      res.json({ message: "Pet created successfully" });
+    } catch (error) {
+      console.error("Error creating pet:", error);
+      res.status(500).json({ error: "Failed to add a pet", detailedError: error.message });
     }
   });
   

@@ -15,6 +15,12 @@ router.get("/Users/Fetch_all_userinfo", async (req, res) => {
   return res.json(database);
 });
 
+router.get("/Users/GetAllDoctors", async (req, res) => {
+  let sql = "SELECT DISTINCT * FROM users where role=3";
+  let database = await db.allAsync(sql);
+  return res.json(database);
+});
+
 
 router.get("/Users/GetUserByEmail/:email", async (req, res) => {
   console.log(req);
@@ -88,10 +94,11 @@ router.post("/Users/GetUser", async (req, res) => {
         cb(null, path.join(__dirname, "../../client/src/static")); 
       },
       filename: (req, file, cb) => {
-        fileName = `/${file.originalname}`;
+        const fileName = `/${Date.now()}_${file.originalname}`;
         cb(null, fileName);
       },
     });
+    
     
     const upload = multer({ storage });
   

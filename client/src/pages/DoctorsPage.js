@@ -1,11 +1,6 @@
 import React, {} from "react";
 import { useNavigate} from "react-router-dom";
-import "../components/OwnerProfile.css";
-import "../components/PetCard.css";
 import profileImg from "../static/picture2.png";
-import pic1 from "../static/ElC_happy_red_cat.png";
-import pic2 from "../static/ElC_happy_scottish_terrier.png";
-import pic3 from "../static/ElC_happy_scottish_terrier_dog.png";
 
 // Creates the homepage of the application
 function DoctorsPage() {

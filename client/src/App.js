@@ -14,12 +14,14 @@ import AdminsPage from  "./pages/AdminsPage.js";
 import DoctorsPage from  "./pages/DoctorsPage.js";
 import ChangePet from  "./pages/ChangePet.js";
 import ChangeInfo from  "./pages/ChangeInfo.js";
+import MakeAppointment from  "./pages/MakeAppointment.js";
+
 // CSS-files
 import "./App.css";
 import "./pages/Homepage.css";
 import "./pages/SignUp.css";
 import "./pages/OwnersPage.css";
-import "./pages/AddPet.css";
+//import "./pages/AddPet.css";
 import "./pages/DoctorsPage.css";
 import "./pages/AdminsPage.css";
 //import "./pages/ChangePet.css";
@@ -65,6 +67,8 @@ function App() {
               <Route path="/AdminsPage" element={<AdminsPage />} />
               <Route path="/ChangePet/:petId" element={<ChangePet />} />
               <Route path="/ChangeInfo/:email" element={<ChangeInfo />} />
+              <Route path="/AddPet/:email" element={<AddPet />} />
+              <Route path="/MakeAppointment/:email" element={<MakeAppointment />} />
               <Route
                 path="*"
                 element={

@@ -114,6 +114,17 @@
     justify-content: space-between; /* Add space between pet boxes */
   }
   
+  #pictures button {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 10px;
+    margin-top: 10px;
+    background-color: #c8dff7; /* Change to the desired background color */
+    color: #fff; /* Change to the desired text color */
+    width: 150px; /* Set the width of the buttons to match the images */
+    height: 15%; /* Set the height of the buttons to match the images */
+  }
+  
 
   .button {
     font-size: 14px;
@@ -125,7 +136,7 @@
   }
 
   .pet-box {
-    width: calc(200% - 20px); /* Set the width of each pet box */
+    width: 100%; /* Set the width of each pet box to 100% */
     padding: 10px; /* Add padding around each pet box */
     background-color: #fff;
     border-radius: 10px;

@@ -10,6 +10,8 @@ function OwnersPage() {
   const [username, setUsername] = useState("");
   const [userInfo, setUserInfo] = useState();
   const [userPets, setUserPets] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [doctorsData, setDoctorsData] = useState([]);
 
  // get user info
   const fetchUserData = async () => {
@@ -54,15 +56,41 @@ function OwnersPage() {
     setUserPets(userPetsData.pets);
   };
 
+  const fetchAppointments = async () => {
+    const username = sessionStorage.getItem("email");
+    console.log('USERNAME');
+    console.log(username);
+    const response = await fetch(`http://localhost:3000/Pets/GetAppointments/${username}`);
+    const appoints = await response.json();
+    console.log(appoints);
+    setAppointments(appoints.appoints);
+  
+  };
+ 
+  const fetchDoctors = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/Users/GetAllDoctors');
+      const data = await response.json();
+      setDoctorsData(data);
+    } catch (error) {
+      console.error('Error fetching doctors data:', error);
+    }
+  };
 
- // Running fetchItems  and setting the usernameState from sessionStorage
- useEffect(() => {
+
+  useEffect(() => {
+    setUsername(sessionStorage.getItem("email"));
     fetchUserData();
     fetchUserPets();
+    fetchAppointments();
+    fetchDoctors();
     setUsername(sessionStorage.getItem("email"));
   }, []);
+  
+  useEffect(() => {
+    console.log("DOCTORS:", doctorsData);
+  }, [doctorsData]);
 
-  // Returns user profile if the user is logged in.
 
 if (sessionStorage.getItem("token")) {
   return (
@@ -126,6 +154,18 @@ if (sessionStorage.getItem("token")) {
                           >
                             Change Pet
                           </button>
+                           {/* New code to display appointments for each pet */}
+                        <h4>Appointments:</h4>
+                       {appointments
+                        .filter((appointment) => appointment.pet_id === pet.id)
+                        .map((appointment) => {
+                            const doctor = doctorsData.find((doctor) => doctor.id === appointment.doctor_id);
+                            return (
+                            <div key={appointment.id}>
+                                <p>{appointment.startdate} - {appointment.enddate}, {doctor ? doctor.firstname : 'Unknown'}</p>
+                            </div>
+                            );
+                        })}
                     </div>
                     
                 ))}

@@ -91,4 +91,47 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error", detailedError: err.message });
   });
 
+
+  router.post("/Pets/MakeAppointment", async (req, res) => {
+    const petid = req.body.petId;
+    const doctorid = req.body.doctorId;
+    const date = req.body.date;
+    const starttime =  req.body.datetimeStart;
+    const endtime = req.body.datetimePlusOneHour;
+    
+    const sql1 = "SELECT ownerid FROM pets WHERE id = ?";
+    const getOwner = await db.getAsync(sql1, petid);
+
+    const sql = "INSERT INTO appointments (doctor_id,owner_id,pet_id,startdate,enddate) VALUES (?,?,?,?,?)";
+  
+    try {
+      await db.runAsync(sql, [doctorid,getOwner.ownerid ,petid, starttime, endtime]);
+  
+      res.json({ message: "Pet updated successfully" });
+    } catch (error) {
+      console.error("Error updating pet:", error);
+      res.status(500).json({ error: "Failed to update pet", detailedError: error.message });
+    }
+  });
+
+  router.get("/Pets/GetAppointments/:email", async (req, res) => {
+    
+    const email = req.params.email;
+    
+    const sql = "SELECT * FROM appointments WHERE owner_id in (SELECT id from users where email = ?)";
+    const getAppts = await db.allAsync(sql, email);
+  
+    if (getAppts === undefined) {
+      
+      res.json({
+          message: "No appointments",
+      });
+    } else {
+      res.json({
+         appoints: getAppts, 
+      });
+        }
+  
+    });
+
   module.exports = router;

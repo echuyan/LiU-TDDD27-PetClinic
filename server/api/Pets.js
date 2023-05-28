@@ -134,4 +134,26 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
   
     });
 
+
+    router.get("/Pets/GetAppointmentsForADoctor/:id", async (req, res) => {
+    
+      const id = req.params.id;
+      
+      const sql = "SELECT * FROM appointments WHERE doctor_id  = ?";
+      const getAppts = await db.allAsync(sql, id);
+    
+      if (getAppts === undefined) {
+        
+        res.json({
+            message: "No appointments",
+        });
+      } else {
+        res.json({
+           appoints: getAppts, 
+        });
+          }
+    
+      });
+  
+
   module.exports = router;

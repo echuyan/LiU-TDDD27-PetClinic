@@ -9,6 +9,7 @@ function DoctorsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [ownerInfo, setOwnerInfo] = useState(null);
   const [userPets, setUserPets] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   // search owner
   const searchPetOwner = async () => {
@@ -53,7 +54,7 @@ function DoctorsPage() {
     setSearchQuery("");
   };
 
-  // get doctor's info
+  // get doctor's info and appointment schedule for this doctor
   const fetchUserData = async () => {
     console.log(
       JSON.stringify({
@@ -70,10 +71,29 @@ function DoctorsPage() {
         username: sessionStorage.getItem("email"),
       }),
     }).then((response) => response.json());
-
-    console.log(userInfo);
     setUserInfo(userInfo.user);
+
+    const id = userInfo.user.id;
+    console.log(id);
+    const response = await fetch(`http://localhost:3000/Pets/GetAppointmentsForADoctor/${id}`);
+    const appoints = await response.json();
+    console.log(appoints);
+    setAppointments(appoints.appoints);
+
+    //now we get full info on pets for who appointments are planned
+    const petAppointments = [];
+
+    for (const appointment of appoints.appoints) {
+      const petId = appointment.pet_id;
+      const petResponse = await fetch(`http://localhost:3000/Pets/GetPet/${petId}`);
+      const petData = await petResponse.json();
+      appointment.pet = petData.pet;
+      petAppointments.push(appointment);
+    }
+    setAppointments(petAppointments);
+    
   };
+
 
   useEffect(() => {
     setUsername(sessionStorage.getItem("email"));
@@ -85,15 +105,27 @@ function DoctorsPage() {
     return (
       <div id="globaldiv">
         <div id="background">
+          
           <div id="userprofile">
-            <img src="" alt="User Profile" width={400} />
+            <img src="" alt="" width={400} />
             <p>Hello, Doctor {userInfo && userInfo.firstname}</p>
-            <p></p>
+            
           </div>
           <div id="myschedule">
-            <p>Your schedule</p>
-            <p>for this week</p>
-          </div>
+              <p>Your schedule</p>
+              <h4>Appointments:</h4>
+              {appointments.map((appointment) => {
+                return (
+                  <div key={appointment.id}>
+                    <p>
+                    <b><i>{appointment.pet &&  appointment.pet.name}:</i></b>
+                    {appointment.startdate} - {appointment.enddate}
+                     
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
         
         </div>
 
@@ -152,9 +184,11 @@ function DoctorsPage() {
                             <button className="btn btn-info">
                               New Health Record
                             </button>
-                            <button className="btn btn-info">
-                              Make an Appointment
-                            </button>
+                            <button className="btn btn-info" onClick={() => {
+                              navigate(`/MakeDoctorAppointment/${ownerInfo.email,pet.id}`);
+                            }}>
+                            Make an appointment
+                          </button>
                           </div>
                         </div>
                       ))}

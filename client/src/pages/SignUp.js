@@ -7,25 +7,50 @@ function SignUp() {
   const navigate = useNavigate();
 
   // Functionality after pushing submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const firstname = document.getElementById("firstname").value;
+    const familyname = document.getElementById("familyname").value;
+    console.log(firstname);
+    const myData = {
+      email: email,
+      password: password,
+      firstname: firstname,
+      familyname: familyname
+    };
+    try {
+      const response = await fetch("http://localhost:3000/SignUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(myData),
+      });
 
-    alert(
-      "User created."
-    );
-    navigate("/");
-    window.location.reload();
-    const myData = { email, password };
-    console.log("email:");
-    console.log(email);
-    // Sending userdata through a POST request to server
-    fetch("http://localhost:3000/SignUp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(myData),
-    }).then(() => {});
+      if (response.ok) {
+        // User created successfully
+        alert("User created successfully.");
+        navigate("/");
+        window.location.reload();
+      } 
+      else {
+        const errorData = await response.json();
+        // Display error message based on the response
+        if (response.status === 409) {
+          // Email already exists
+          alert("User already exists");
+        } else {
+          // Other server error
+          alert("An error occurred");
+        }
+        console.error('Error creating user:', errorData.error);
+      }
+    } catch (error) {
+      alert("An error occurred");
+      console.error('Error creating user:', error);
+    } 
+   
+
   };
 
   return (
@@ -34,7 +59,27 @@ function SignUp() {
       action="/action_page.php"
       onSubmit={handleSubmit}
     >
-      <h1>Register</h1>
+      <h1>Register a new pet owner</h1>
+      <div className="form-group r">
+        <div className="row d-flex justify-content-center">
+          <label>First name</label>
+        </div>
+        <div className="row d-flex justify-content-center">
+          <div className="col-4 d-flex justify-content-center">
+            <input type="text" className="form-control" placeholder="Enter first name"  id="firstname" />
+          </div>
+        </div>
+      </div>
+      <div className="form-group r">
+        <div className="row d-flex justify-content-center">
+          <label>Family name</label>
+        </div>
+        <div className="row d-flex justify-content-center">
+          <div className="col-4 d-flex justify-content-center">
+            <input type="text" className="form-control" placeholder="Enter family name" id="familyname" />
+          </div>
+        </div>
+      </div>
       <div className="form-group r">
         <div className="row d-flex justify-content-center">
           <label>Email</label>
@@ -45,7 +90,6 @@ function SignUp() {
               type="email"
               className="form-control"
               placeholder="Enter email"
-              // value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
             />

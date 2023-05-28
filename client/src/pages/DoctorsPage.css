@@ -1,35 +1,150 @@
-#background{
-    display: flex; 
+#background {
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 30%; 
-    height: 400px; 
+    margin-top: 30px;
+    width: 20%;
+    height: 400px;
+    background-size: cover;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px; /* Add padding to create space inside the box */
+    box-sizing: border-box; /* Include padding in the box size */
+  }
   
-    background-size: 100%;
+  #background button {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: white;
+    height: 50px;
+    background-color: #55779c;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Align the button to the top */
+  }
+  
+  #background button:hover {
+    background-color: #0056b3;
+  }
+  
+  .container {
+    margin-top: 30px;
+    align-items: flex-start; /* Align items to the top */
     
-}
-
-#background button{
-    margin-top: 20px; 
-    color: white; 
-    height: 50px; 
-}
-
-#input-field{
+  }
+  .container button {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #c8dff7; 
+    color: #fff; 
+  }
+  
+  .main-body {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+  }
+  
+  #userprofile {
     display: flex;
+    
+    flex-direction: column;
+    text-align: center; /* Center align the content */
+    align-items: flex-start; /* Align items to the top */
+    height: 100%;
     width: 100%;
-    justify-content: center;
+  }
+  
+  #userprofile img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-bottom: 20px;
-
-}
-
-#userprofile{
-    align-items: left;
-    height: 25%;
-    width: 25%;
-}
-
-#globaldiv{
+    max-width: 100%; /* Limit the image width to prevent overflow */
+    height: auto; /* Maintain the aspect ratio */
+    margin: 0 auto; /* Center the image horizontally */
+    display: block; /* Ensure proper spacing and alignment */
+  }
+  
+  #userprofile h4 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center; /* Center align the text */
+  }
+  
+  #userprofile p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 10px;
+    text-align: center; /* Center align the text */
+  }
+  
+  #pictures {
     display: flex;
-}
+    align-items: center;
+  }
+  
+  #pictures .col-sm {
+    margin-bottom: 20px;
+  }
+  
+  #pictures h4 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  #pictures p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 10px;
+  }
+  
+  #pictures img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  
+#pictures {
+    display: flex;
+    flex-wrap: wrap; /* Allow flex items to wrap to new line */
+    justify-content: space-between; /* Add space between pet boxes */
+  }
+  
+  #pictures button {
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    background-color: #c8dff7; /* Change to the desired background color */
+    color: #fff; /* Change to the desired text color */
+    width: 150px; /* Set the width of the buttons to match the images */
+    height: 15%; /* Set the height of the buttons to match the images */
+  }
+  
+
+  .button {
+    font-size: 14px;
+    font-weight: normal;
+    padding: 5px 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: #c8dff7; 
+    color: #fff; 
+  }
+

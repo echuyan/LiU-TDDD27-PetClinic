@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+
 // Creates the homepage of the application
 function DoctorsPage() {
   const navigate = useNavigate();
@@ -11,18 +13,18 @@ function DoctorsPage() {
   const [userPets, setUserPets] = useState([]);
   const [appointments, setAppointments] = useState([]);
 
+
+ 
   // search owner
   const searchPetOwner = async () => {
     try {
       console.log(searchQuery);
-      const response = await fetch(
-        `http://localhost:3000/Users/GetUserByEmail/${searchQuery}`
-      );
+      const response = await fetch(`http://localhost:3000/Users/GetUserByEmail/${searchQuery}`);
 
       if (response.ok) {
         const data = await response.json();
         setOwnerInfo(data.user);
-        console.log(ownerInfo);
+        sessionStorage.setItem("currentsearchedowner", searchQuery);
         const userPetsData = await fetch(
           `http://localhost:3000/Users/GetPets`,
           {
@@ -52,6 +54,7 @@ function DoctorsPage() {
     setOwnerInfo(null);
     setUserPets([]);
     setSearchQuery("");
+    sessionStorage.removeItem("currentsearchedowner");
   };
 
   // get doctor's info and appointment schedule for this doctor
@@ -92,12 +95,18 @@ function DoctorsPage() {
     }
     setAppointments(petAppointments);
     
-  };
+   
 
+  };
 
   useEffect(() => {
     setUsername(sessionStorage.getItem("email"));
+    setSearchQuery(sessionStorage.getItem("currentsearchedowner"));
+
+    searchPetOwner();
+    
     fetchUserData();
+
   }, []);
 
   // Returns user profile if the user is logged in.
@@ -169,29 +178,38 @@ function DoctorsPage() {
               <div className="col-md-6">
                 <div id="pictures">
                   <div className="row">
-                    <div className="col-sm">
-                      {userPets.map((pet) => (
-                        <div className="pet-box" key={pet.id}>
-                          <h4>{pet.name}</h4>
-                          <p>Species: {pet.species}</p>
-                          <p>Date of Birth: {pet.dateofbirth}</p>
-                          <img
-                            src={pet.photo}
-                            alt="pet photo"
-                            width={200}
-                          />
-                          <div className="buttons">
-                            <button className="btn btn-info">
-                              New Health Record
-                            </button>
-                            <button className="btn btn-info" onClick={() => {
-                              navigate(`/MakeDoctorAppointment/${ownerInfo.email,pet.id}`);
-                            }}>
+                  <div className="col-sm">
+                  {userPets.map((pet) => (
+                   
+                      <div className="pet-box">
+                        <h4>{pet.name}</h4>
+                        <p>Species: {pet.species}</p>
+                        <p>Date of Birth: {pet.dateofbirth}</p>
+                        <Link to={`/PetCard/${userInfo.id}/${pet.id}`} className="pet-link" key={pet.id}>
+                        <img src={pet.photo} alt="pet photo" width={200} />
+                        </Link>
+                        <div className="buttons">
+                        <button
+                            className="btn btn-info"
+                            onClick={() => {
+                              navigate(`/NewHealthRecordPage/${userInfo.id}/${pet.id}`);
+                            }}
+                          >
+                            New health record
+                          </button>
+                         
+                          <button
+                            className="btn btn-info"
+                            onClick={() => {
+                              navigate(`/MakeAppointment/${ownerInfo.email}`);
+                            }}
+                          >
                             Make an appointment
                           </button>
-                          </div>
                         </div>
-                      ))}
+                      </div>
+                  
+                  ))}
                     </div>
                   </div>
                 </div>
@@ -203,5 +221,6 @@ function DoctorsPage() {
     );
   }
 }
+
 
 export default DoctorsPage;

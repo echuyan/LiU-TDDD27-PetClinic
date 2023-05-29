@@ -44,7 +44,9 @@ function ChangeInfo() {
   };
 
   const handleBackButtonClick = () => {
-    navigate("/OwnersPage");
+  
+      navigate(-1);
+  
   };
 
   // Render the form to change pet details

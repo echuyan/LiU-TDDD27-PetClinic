@@ -115,6 +115,7 @@ body {
     height: 15%;
   }
   
+
   #ownersemail {
     font-size: 16px;
     padding: 10px;
@@ -128,7 +129,14 @@ body {
     outline: none;
     border-color: #55779c;
   }
-
+  
+  #pictures .pet-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
   #pictures .pet-box:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }

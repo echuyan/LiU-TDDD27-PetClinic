@@ -15,17 +15,20 @@ import DoctorsPage from  "./pages/DoctorsPage.js";
 import ChangePet from  "./pages/ChangePet.js";
 import ChangeInfo from  "./pages/ChangeInfo.js";
 import MakeAppointment from  "./pages/MakeAppointment.js";
+import PetCard from  "./pages/PetCard.js";
+import NewHealthRecordPage from  "./pages/NewHealthRecordPage.js";
+import AddUser from  "./pages/AddUser.js";
 
 // CSS-files
 import "./App.css";
 import "./pages/Homepage.css";
 import "./pages/SignUp.css";
 import "./pages/OwnersPage.css";
-//import "./pages/AddPet.css";
+import "./pages/PetCard.css";
 import "./pages/DoctorsPage.css";
 import "./pages/AdminsPage.css";
-//import "./pages/ChangePet.css";
-
+import "./pages/Nav.css";
+//import "./pages/Footer.css";
 
 function App() {
   // If the user is not logged in:
@@ -69,6 +72,10 @@ function App() {
               <Route path="/ChangeInfo/:email" element={<ChangeInfo />} />
               <Route path="/AddPet/:email" element={<AddPet />} />
               <Route path="/MakeAppointment/:email" element={<MakeAppointment />} />
+              <Route path="/PetCard/:petId" element={<PetCard />} />
+              <Route path="/PetCard/:doctorId/:petId" element={<PetCard />} />
+              <Route path="/NewHealthRecordPage/:doctorId/:petId" element={<NewHealthRecordPage />} />
+              <Route path="/AddUser" element={<AddUser />} />
               <Route
                 path="*"
                 element={

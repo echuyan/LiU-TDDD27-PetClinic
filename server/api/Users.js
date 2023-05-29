@@ -4,6 +4,7 @@ const db = require("../database");
 const multer = require("multer");
 const path = require("path");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 
 router.use(bodyParser.json()); 
 
@@ -41,6 +42,26 @@ router.get("/Users/GetUserByEmail/:email", async (req, res) => {
       }
 
   });
+
+  router.get("/Users/GetUserByPetId/:petId", async (req, res) => {
+    console.log(req);
+    const petId = req.params.petId;
+    
+    const sql = "SELECT * FROM users WHERE id in  (SELECT ownerid from pets where id = ?)";
+    const getUser = await db.getAsync(sql, petId);
+  
+    if (getUser === undefined) {
+      
+      res.json({
+          message: "No such user",
+      });
+    } else {
+      res.json({
+         user: getUser, 
+      });
+        }
+  
+    });
 
 
 router.post("/Users/GetUser", async (req, res) => {
@@ -125,5 +146,41 @@ router.post("/Users/GetUser", async (req, res) => {
       console.error("Error:", err);
       res.status(500).json({ error: "Internal Server Error", detailedError: err.message });
     });
+
+
+
+    // Create new user 
+router.post("/Users/AddUser", upload.single("photo"), async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const firstname = req.body.firstname;
+  const familyname = req.body.familyname;
+  const role = req.body.role;
+  let insrole;
+  if (role=='Doctor') {
+     insrole=3;
+  }
+  else {
+     insrole=2;
+  }
+  const specialization = req.body.specialization;
+  const photo =  req.file ? req.file.filename : null;
+  const phone = req.body.phone;
+
+  // Hashing and salting the password
+  const salt = await bcrypt.genSalt(6);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  
+  const sql = "insert into users (firstname,familyname,email,password,role,specialization,photo,phone)  values(?,?,?, ?,?,?,?,?)";
+
+  try {
+    const request = await db.runAsync(sql, [firstname,familyname,email, hashedPassword,insrole,specialization,photo,phone]);
+    res.json({ message: "User created successfully" });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Failed to create user", detailedError: error.message });
+
+  }
+});
 
 module.exports = router;

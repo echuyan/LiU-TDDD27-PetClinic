@@ -156,4 +156,65 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
       });
   
 
+      router.get("/Pets/GetAppointmentsForAPet/:petId", async (req, res) => {
+    
+        const petId = req.params.petId;
+        
+        const sql = "SELECT * FROM appointments WHERE pet_id  = ?";
+        const getAppts = await db.allAsync(sql, petId);
+      
+        if (getAppts === undefined) {
+          
+          res.json({
+              message: "No appointments",
+          });
+        } else {
+          res.json({
+             appoints: getAppts, 
+          });
+            }
+      
+        });
+
+        router.get("/Pets/GetHealthRecordsForAPet/:petId", async (req, res) => {
+    
+          const petId = req.params.petId;
+          
+          const sql = "SELECT * FROM health_records WHERE pet_id  = ?";
+          const getHRs = await db.allAsync(sql, petId);
+        
+          if (getHRs === undefined) {
+            
+            res.json({
+                message: "No appointments",
+            });
+          } else {
+            res.json({
+               HRs: getHRs, 
+            });
+              }
+        
+          });
+
+
+
+          router.post("/Pets/CreateRecord", async (req, res) => {
+            const doctorId = req.body.doctorId;
+            const petId = req.body.petId;
+            const text = req.body.record;
+            const date = req.body.date;
+           
+            const sql = "INSERT INTO health_records (doctor_id,pet_id,date,record) VALUES (?,?,?,?)";
+          
+            try {
+              await db.runAsync(sql, [doctorId,petId, date, text]);
+          
+              res.json({ message: "Health record created successfully" });
+            } catch (error) {
+              console.error("Error creating health record:", error);
+              res.status(500).json({ error: "Failed to create health record", detailedError: error.message });
+            }
+          });
+
+
   module.exports = router;

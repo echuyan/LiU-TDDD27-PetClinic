@@ -26,11 +26,13 @@ function AddPet() {
         body: formData, // Send the form data with the file
       });
     
-    navigate("/OwnersPage");
+      navigate(-1);
   };
 
   const handleBackButtonClick = () => {
-    navigate("/OwnersPage");
+  
+      navigate(-1);
+  
   };
 
 

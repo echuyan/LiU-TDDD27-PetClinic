@@ -11,6 +11,11 @@ function MakeAppointment() {
   const [doctorsData, setDoctorsData] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+ 
+  ///////////////////////
+  const [selectedDoctorId, setSelectedDoctorId] = useState('');
+  const [existingAppointments, setExistingAppointments] = useState([]);
+///////////////////////////
 
  useEffect(() => {
     // Fetch user's pets data
@@ -38,6 +43,8 @@ function MakeAppointment() {
         const response = await fetch('http://localhost:3000/Users/GetAllDoctors');
         const data = await response.json();
         setDoctorsData(data);
+             
+
       } catch (error) {
         console.error('Error fetching doctors data:', error);
       }
@@ -83,7 +90,7 @@ function MakeAppointment() {
     });
 
     if (response.ok) {
-      navigate("/OwnersPage");
+       navigate(-1);
     } else {
       const errorData = await response.json();
       console.error("Failed to create appointment:", errorData.error);
@@ -95,16 +102,12 @@ function MakeAppointment() {
   };
 
   const handleBackButtonClick = () => {
-    navigate('/OwnersPage');
+    
+      navigate(-1);
+   
   };
 
-  const handleDateChange = (e) => {
-    const selected = new Date(e.target.value);
-    const selectedFormatted = format(selected, 'yyyy-MM-dd');
-  
-    setSelectedDate(selectedFormatted);
-    setSelectedTime('');
-  };
+
   
   const isWeekendDay = (date) => {
     const day = date.getDay();
@@ -112,7 +115,7 @@ function MakeAppointment() {
   };
   
 
-  const generateTimeOptions = () => {
+  const generateTimeOptions = (existingAppointments) => {
     const startTime = new Date();
     startTime.setHours(8, 0, 0); // Set the start of working time to 8 am
     const endTime = new Date();
@@ -122,14 +125,56 @@ function MakeAppointment() {
     let currentTime = startTime;
 
     while (currentTime <= endTime) {
-      options.push(format(currentTime, 'HH:mm'));
+      const timeOption = format(currentTime, 'HH:mm:ss');
+      const dateTimeOption = `${selectedDate} ${timeOption}`;
+      console.log(dateTimeOption);
+      if (!existingAppointments.includes(dateTimeOption)) {
+        options.push(timeOption);
+      }
+  
       currentTime = addHours(currentTime, 1);
     }
 
     return options;
   };
 
-  const timeOptions = generateTimeOptions();
+  const timeOptions = generateTimeOptions(existingAppointments);
+
+////////////////////////////find existing appointments for selected doctor
+useEffect(() => {
+  const fetchAppointments = async () => {
+    if (selectedDoctorId) {
+      try {
+        const response = await fetch(`http://localhost:3000/Pets/GetAppointmentsForADoctor/${selectedDoctorId}`);
+        const data = await response.json();
+        const startDates = data.appoints.map(appointment => appointment.startdate);
+        setExistingAppointments(startDates);
+       
+        console.log(existingAppointments);
+      } catch (error) {
+        console.error('Error fetching doctor appointments:', error);
+      }
+    }
+  };
+
+  fetchAppointments();
+}, [selectedDoctorId,selectedDate]);
+
+const handleDoctorChange = (e) => {
+  const doctorId = e.target.value;
+  setSelectedDoctorId(doctorId);
+};
+
+const handleDateChange = (e) => {
+  const selected = new Date(e.target.value);
+  const selectedFormatted = format(selected, 'yyyy-MM-dd');
+
+  setSelectedDate(selectedFormatted);
+  setSelectedTime('');
+};
+
+//////////////////////////////
+
 
   return (
     <div className={styles.container}>
@@ -148,7 +193,8 @@ function MakeAppointment() {
         </div>
         <div className={styles['form-group']}>
           <label htmlFor="doctor">Doctor:</label>
-          <select id="doctor" required>
+          <select id="doctor" required onChange={handleDoctorChange}>
+            <option value="">Select a doctor</option>
             {doctorsData.map((doctor) => (
               <option key={doctor.id} value={doctor.id}>
                 {doctor.firstname}
@@ -183,14 +229,16 @@ function MakeAppointment() {
         {selectedDate && !isWeekend(new Date(selectedDate)) && (
           <div className={styles['form-group']}>
             <label htmlFor="time">Time:</label>
+           
             <select id="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required>
-              <option value="">Select a time</option>
-              {timeOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+  <option value="">Select a time</option>
+  {timeOptions.filter((option) => !existingAppointments.includes(`${selectedDate} ${option}`)).map((option) => (
+    <option key={option} value={option}>
+      {option}
+    </option>
+  ))}
+</select>
+
           </div>
         )}
         <button type="submit" className={styles['submit-button']}>

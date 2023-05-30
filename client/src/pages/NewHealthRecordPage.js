@@ -8,12 +8,10 @@ function NewHealthRecordPage() {
 
   const saveHealthRecord = async () => {
     if (!healthRecord) {
-      // Health record is empty, handle validation or display error message
       return;
     }
 
     try {
-      // Send an HTTP request to create the health record
       await fetch("http://localhost:3000/Pets/CreateRecord", {
         method: "POST",
         headers: {
@@ -23,12 +21,11 @@ function NewHealthRecordPage() {
           doctorId: doctorId,
           petId: petId,
           record: healthRecord,
-          date:new Date(),
+          date: new Date(),
         }),
       });
 
-      // Redirect back to the PetCard page
-      navigate(`/PetCard/${petId}`);
+       navigate(`/PetCard/${petId}`);
     } catch (error) {
       console.error("Error creating health record:", error);
     }

@@ -3,12 +3,11 @@ import { useNavigate} from "react-router-dom";
 import profileImg from "../static/picture2.png";
 
 
-// Creates the homepage of the application
+
 function Homepage() {
  
   const navigate = useNavigate();
 
-  // Changes the text for the button if the user has logged in.
   function displayButton() {
     
     const element = document.getElementById("Welcome-header");
@@ -25,7 +24,6 @@ function Homepage() {
     }
   }
 
-  // Changes the action of the main button if the user is logged in or not.
   function buttonAction() {
    
     if (sessionStorage.getItem("email") !== null) {
@@ -35,7 +33,6 @@ function Homepage() {
     }
   }
 
-  // Returns user profile if the user is logged in.
 
 if (sessionStorage.getItem("token")) {
   return (

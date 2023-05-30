@@ -8,8 +8,6 @@ const bcrypt = require("bcrypt");
 
 router.use(bodyParser.json()); 
 
-// Fetching all userinfo from database and sending it to
-// component
 router.get("/Users/Fetch_all_userinfo", async (req, res) => {
   let sql = "SELECT DISTINCT * FROM users";
   let database = await db.allAsync(sql);
@@ -24,9 +22,9 @@ router.get("/Users/GetAllDoctors", async (req, res) => {
 
 
 router.get("/Users/GetUserByEmail/:email", async (req, res) => {
-  console.log(req);
+  
   const id = req.params.email;
-  console.log(id);
+  
   const sql = "SELECT * FROM users WHERE email = ?";
   const getUser = await db.getAsync(sql, id);
 
@@ -44,7 +42,7 @@ router.get("/Users/GetUserByEmail/:email", async (req, res) => {
   });
 
   router.get("/Users/GetUserByPetId/:petId", async (req, res) => {
-    console.log(req);
+    
     const petId = req.params.petId;
     
     const sql = "SELECT * FROM users WHERE id in  (SELECT ownerid from pets where id = ?)";
@@ -65,9 +63,9 @@ router.get("/Users/GetUserByEmail/:email", async (req, res) => {
 
 
 router.post("/Users/GetUser", async (req, res) => {
-  console.log(req);
+  
   const email = req.body.username;
-  console.log(email);
+  
   const sql = "SELECT * FROM users WHERE email = ?";
   const getUser = await db.getAsync(sql, email);
 
@@ -87,9 +85,9 @@ router.post("/Users/GetUser", async (req, res) => {
   });
 
   router.post("/Users/GetPets", async (req, res) => {
-    console.log(req);
+   
     const email = req.body.username;
-    console.log(email);
+   
     const sql = "SELECT * FROM pets WHERE ownerid in (SELECT id from users where email = ?)";
     const getPet = await db.allAsync(sql, email);
   

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Creates a logIn component and a login view
 export const LogIn = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,9 +29,10 @@ export const LogIn = (props) => {
           sessionStorage.setItem("phone", data.phone);
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("email", data.email);
-          console.log(data.role);
+          
           switch (data.role) {
             case 1:
+              sessionStorage.setItem("mainpage", "/AdminsPage");
               navigate("/AdminsPage", {
                 state: {
                   id: data.email,
@@ -40,6 +40,7 @@ export const LogIn = (props) => {
               });
               break;
             case 2:
+              sessionStorage.setItem("mainpage", "/OwnersPage");
               navigate("/OwnersPage", {
                 state: {
                   id: data.email,
@@ -48,6 +49,7 @@ export const LogIn = (props) => {
               });
               break;
             case 3:
+              sessionStorage.setItem("mainpage", "/DoctorsPage");
               navigate("/DoctorsPage", {
                 state: {
                   id: data.email,
@@ -61,7 +63,7 @@ export const LogIn = (props) => {
                 },
               });
           }
-      
+
           window.location.reload();
         } else if (!data.auth) {
           alert("Wrong password try again.");
@@ -73,19 +75,19 @@ export const LogIn = (props) => {
   };
 
   return (
-    <form  class="d-flex-col justify-content-center align-items-center mx-5"
-    style={{ textAlign: "center" }}
+    <form className="d-flex-col justify-content-center align-items-center mx-5"
+      style={{ textAlign: "center" }}
       action="/action_page.php"
       onSubmit={(e) => handleSubmit(e)}
     >
-      <h1  style={{ textAlign: "left" }}>Login</h1>
-      <div    className="form-group ">
-        <div class=" mx-1" style={{ textAlign: "left" }} className="row d-flex ">
+      <h1 style={{ textAlign: "left" }}>Login</h1>
+      <div className="form-group ">
+        <div className=" mx-1" style={{ textAlign: "left" }} className="row d-flex ">
           <label>Email</label>
         </div>
-        <div  className="row " >
+        <div className="row " >
           <div className="col-4 d-flex ">
-            <input 
+            <input
               type="email"
               className="form-control"
               placeholder="Enter email"
@@ -97,7 +99,7 @@ export const LogIn = (props) => {
         </div>
       </div>
       <div className="form-group ">
-        <div class=" mx-1" style={{ textAlign: "left" }} className="row row d-flex ">
+        <div className=" mx-1" style={{ textAlign: "left" }} className="row row d-flex ">
           <label>Password</label>
         </div>
         <div className="row ">
@@ -112,10 +114,10 @@ export const LogIn = (props) => {
           </div>
         </div>
       </div>
-      <div  style={{ textAlign: "left" }}>
-      <button  type="submit" className="btn btn-primary">
-        Login
-      </button> 
+      <div style={{ textAlign: "left" }}>
+        <button type="submit" className="btn btn-primary">
+          Login
+        </button>
       </div>
     </form>
   );

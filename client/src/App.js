@@ -28,7 +28,6 @@ import "./pages/PetCard.css";
 import "./pages/DoctorsPage.css";
 import "./pages/AdminsPage.css";
 import "./pages/Nav.css";
-//import "./pages/Footer.css";
 
 function App() {
   // If the user is not logged in:
@@ -41,7 +40,7 @@ function App() {
            
             <Route path="/LogIn" element={<LogIn />} />
             <Route path="/SignUp" element={<SignUp />} />
-           
+            <Route path="/Home" element={<Homepage />} />
             <Route
               path="*"
               element={

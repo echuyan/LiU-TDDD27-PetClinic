@@ -1,15 +1,10 @@
-//Libraries
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-//Modules
 const db = require("../database");
 
-// Api request
-// LogIn post request receiving login credentials from LogIn component
-// and checking if valid in database
 router.post("/LogIn", async (req, res) => {
   const email = req.body.email;
   user = email;
@@ -28,8 +23,6 @@ router.post("/LogIn", async (req, res) => {
   } else {
     const databasePassword = getUser.password;
     
-    //Bcrypt compare function comparing the password with hashed password
-    //in database, if valid a token is returned
     bcrypt.compare(password, databasePassword, function (err, isMatch) {
       if (err) {
         throw err;

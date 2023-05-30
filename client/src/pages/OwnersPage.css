@@ -10,8 +10,8 @@
     background-color: #f2f2f2;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding: 20px; /* Add padding to create space inside the box */
-    box-sizing: border-box; /* Include padding in the box size */
+    padding: 20px; 
+    box-sizing: border-box; 
   }
   
   #background button {
@@ -32,7 +32,7 @@
   
   .container {
     margin-top: 30px;
-    align-items: flex-start; /* Align items to the top */
+    align-items: flex-start; 
     
   }
   
@@ -47,8 +47,8 @@
     display: flex;
     
     flex-direction: column;
-    text-align: center; /* Center align the content */
-    align-items: flex-start; /* Align items to the top */
+    text-align: center;
+    align-items: flex-start; 
     height: 100%;
     width: 100%;
   }
@@ -59,24 +59,24 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 20px;
-    max-width: 100%; /* Limit the image width to prevent overflow */
-    height: auto; /* Maintain the aspect ratio */
-    margin: 0 auto; /* Center the image horizontally */
-    display: block; /* Ensure proper spacing and alignment */
+    max-width: 100%;
+    height: auto; 
+    margin: 0 auto; 
+    display: block; 
   }
   
   #userprofile h4 {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
-    text-align: center; /* Center align the text */
+    text-align: center; 
   }
   
   #userprofile p {
     font-size: 16px;
     color: #777;
     margin-bottom: 10px;
-    text-align: center; /* Center align the text */
+    text-align: center; 
   }
   
   #pictures {
@@ -110,8 +110,8 @@
   
 #pictures {
     display: flex;
-    flex-wrap: wrap; /* Allow flex items to wrap to new line */
-    justify-content: space-between; /* Add space between pet boxes */
+    flex-wrap: wrap; 
+    justify-content: space-between;
   }
   
   #pictures button {
@@ -119,10 +119,10 @@
     font-weight: normal;
     padding: 5px 10px;
     margin-top: 10px;
-    background-color: #c8dff7; /* Change to the desired background color */
-    color: #fff; /* Change to the desired text color */
-    width: 150px; /* Set the width of the buttons to match the images */
-    height: 15%; /* Set the height of the buttons to match the images */
+    background-color: #c8dff7; 
+    color: #fff; 
+    width: 150px; 
+    height: 15%; 
   }
   
 
@@ -131,28 +131,28 @@
     font-weight: normal;
     padding: 5px 10px;
     margin-top: 10px;
-    background-color: #c8dff7; /* Change to the desired background color */
-    color: #fff; /* Change to the desired text color */
+    background-color: #c8dff7; 
+    color: #fff; 
   }
 
   .pet-box {
-    width: 100%; /* Set the width of each pet box to 100% */
-    padding: 10px; /* Add padding around each pet box */
+    width: 100%; 
+    padding: 10px; 
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
-    box-sizing: border-box; /* Include padding in the box size */
-    display: flex; /* Use flexbox to align items */
-    flex-direction: column; /* Align items vertically */
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
   }
   
   .pet-box-content {
-    flex: 1; /* Allow the content to grow and fill the available space */
-    display: flex; /* Use flexbox to align content */
-    flex-direction: column; /* Align content vertically */
-    justify-content: center; /* Center the content vertically */
-    align-items: center; /* Center the content horizontally */
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
   }
   
   .pet-box h4 {

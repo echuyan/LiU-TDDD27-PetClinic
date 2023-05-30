@@ -1,8 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-
-// Creates the homepage of the application
 function PetCard() {
   const navigate = useNavigate();
   const { doctorId,petId } = useParams();
@@ -90,8 +88,7 @@ function PetCard() {
       };
 
   useEffect(() => {
-   console.log("doctorId");
-   console.log(doctorId);
+   
    
     searchPetOwner();
     fetchPet();
@@ -100,7 +97,8 @@ function PetCard() {
   }, [petId]);
 
   const goBack = () => {
-    navigate(-1);
+   navigate( sessionStorage.getItem("mainpage"));
+   //navigate("/OwnersPage");
   };
     return (
       <div id="globaldiv">

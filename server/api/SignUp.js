@@ -14,8 +14,7 @@ router.post("/SignUp", async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
   
   const sql = "insert into users (firstname,familyname,email,password,role)  values(?,?,?, ?,?)";
-  console.log(sql);
-  console.log(firstname);
+  
   try {
     const request = await db.runAsync(sql, [firstname,familyname,email, hashedPassword,2]);
     res.json({ message: "User created successfully" });

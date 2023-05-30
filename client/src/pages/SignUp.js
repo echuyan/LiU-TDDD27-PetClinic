@@ -6,12 +6,12 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Functionality after pushing submit
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const firstname = document.getElementById("firstname").value;
     const familyname = document.getElementById("familyname").value;
-    console.log(firstname);
+    
     const myData = {
       email: email,
       password: password,
@@ -28,19 +28,17 @@ function SignUp() {
       });
 
       if (response.ok) {
-        // User created successfully
+       
         alert("User created successfully.");
         navigate("/");
         window.location.reload();
       } 
       else {
         const errorData = await response.json();
-        // Display error message based on the response
+        
         if (response.status === 409) {
-          // Email already exists
           alert("User already exists");
         } else {
-          // Other server error
           alert("An error occurred");
         }
         console.error('Error creating user:', errorData.error);
@@ -106,7 +104,6 @@ function SignUp() {
               type="password"
               className="form-control"
               placeholder="Enter password"
-              // value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="pwd"
             />

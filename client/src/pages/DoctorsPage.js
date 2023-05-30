@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 
-// Creates the homepage of the application
 function DoctorsPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -12,13 +11,11 @@ function DoctorsPage() {
   const [ownerInfo, setOwnerInfo] = useState(null);
   const [userPets, setUserPets] = useState([]);
   const [appointments, setAppointments] = useState([]);
-
-
  
   // search owner
   const searchPetOwner = async () => {
     try {
-      console.log(searchQuery);
+      
       const response = await fetch(`http://localhost:3000/Users/GetUserByEmail/${searchQuery}`);
 
       if (response.ok) {
@@ -36,8 +33,7 @@ function DoctorsPage() {
           }
         ).then((response) => response.json());
 
-        console.log(typeof userPetsData);
-        console.log(userPetsData);
+        
         setUserPets(userPetsData.pets);
       } else {
         setOwnerInfo(null);
@@ -59,11 +55,7 @@ function DoctorsPage() {
 
   // get doctor's info and appointment schedule for this doctor
   const fetchUserData = async () => {
-    console.log(
-      JSON.stringify({
-        username: sessionStorage.getItem("email"),
-      })
-    );
+    
 
     const userInfo = await fetch(`http://localhost:3000/Users/GetUser`, {
       method: "POST",
@@ -77,13 +69,13 @@ function DoctorsPage() {
     setUserInfo(userInfo.user);
 
     const id = userInfo.user.id;
-    console.log(id);
+    
     const response = await fetch(`http://localhost:3000/Pets/GetAppointmentsForADoctor/${id}`);
     const appoints = await response.json();
-    console.log(appoints);
+    
     setAppointments(appoints.appoints);
 
-    //now we get full info on pets for who appointments are planned
+    //now we get full info on pets for which appointments are planned
     const petAppointments = [];
 
     for (const appointment of appoints.appoints) {
@@ -102,15 +94,12 @@ function DoctorsPage() {
   useEffect(() => {
     setUsername(sessionStorage.getItem("email"));
     setSearchQuery(sessionStorage.getItem("currentsearchedowner"));
-
     searchPetOwner();
-    
     fetchUserData();
 
   }, []);
 
-  // Returns user profile if the user is logged in.
-  if (sessionStorage.getItem("token")) {
+if (sessionStorage.getItem("token")) {
     return (
       <div id="globaldiv">
         <div id="background">

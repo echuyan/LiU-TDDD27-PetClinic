@@ -44,20 +44,20 @@ function Nav() {
         >
            <img src={logo}  style={{height:100, width:150}}/>
           <ul className="navbar-nav  mx-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/">
+            <li className="nav-item">
+              <a className="nav-link" href="/">
                 {" "}
                 Home{" "}
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/LogIn">
+            <li className="nav-item">
+              <a className="nav-link" href="/LogIn">
                 {" "}
                 Login{" "}
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/SignUp">
+            <li className="nav-item">
+              <a className="nav-link" href="/SignUp">
                 {" "}
                 Register{" "}
               </a>

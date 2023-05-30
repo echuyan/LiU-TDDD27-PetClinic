@@ -17,7 +17,7 @@ create table users(
       specialization varchar(320),
       phone varchar(16),
       token varchar(120) UNIQUE,
-      photo BLOB,
+      photo varchar(320),
       foreign key(role) REFERENCES roles(id)
  );
 

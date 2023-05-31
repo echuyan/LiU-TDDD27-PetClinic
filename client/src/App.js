@@ -18,6 +18,7 @@ import MakeAppointment from  "./pages/MakeAppointment.js";
 import PetCard from  "./pages/PetCard.js";
 import NewHealthRecordPage from  "./pages/NewHealthRecordPage.js";
 import AddUser from  "./pages/AddUser.js";
+import ResetPasswordPage from  "./pages/ResetPasswordPage.js";
 
 // CSS-files
 import "./App.css";
@@ -41,11 +42,12 @@ function App() {
             <Route path="/LogIn" element={<LogIn />} />
             <Route path="/SignUp" element={<SignUp />} />
             <Route path="/Home" element={<Homepage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route
               path="*"
               element={
                 <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
+                  <p>Welcome to our clinic!</p>
                 </main>
               }
             />

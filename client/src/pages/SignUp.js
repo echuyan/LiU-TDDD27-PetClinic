@@ -54,7 +54,6 @@ function SignUp() {
   return (
     <form
       style={{ textAlign: "center" }}
-      action="/action_page.php"
       onSubmit={handleSubmit}
     >
       <h1>Register a new pet owner</h1>

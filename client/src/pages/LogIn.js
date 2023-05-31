@@ -29,7 +29,7 @@ export const LogIn = (props) => {
           sessionStorage.setItem("phone", data.phone);
           sessionStorage.setItem("email", data.email);
           sessionStorage.setItem("email", data.email);
-          
+
           switch (data.role) {
             case 1:
               sessionStorage.setItem("mainpage", "/AdminsPage");
@@ -74,10 +74,42 @@ export const LogIn = (props) => {
       });
   };
 
+
+
+  const handleReset = async (e) => {
+    e.preventDefault();
+    const myData = { email };
+    try {
+      const response = await fetch("http://localhost:3000/forgot-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(myData),
+      });
+
+      if (response.ok) {
+
+        alert("Email sent successfully.");
+        navigate("/");
+        window.location.reload();
+      }
+      else {
+        const errorData = await response.json();
+
+          alert("An error occurred");
+        
+        console.error('Error resetting password.', errorData.error);
+      }
+    } catch (error) {
+      alert("An error occurred");
+      console.error('Error resetting password.', error);
+    }
+  };
+
   return (
     <form className="d-flex-col justify-content-center align-items-center mx-5"
       style={{ textAlign: "center" }}
-      action="/action_page.php"
       onSubmit={(e) => handleSubmit(e)}
     >
       <h1 style={{ textAlign: "left" }}>Login</h1>
@@ -117,6 +149,15 @@ export const LogIn = (props) => {
       <div style={{ textAlign: "left" }}>
         <button type="submit" className="btn btn-primary">
           Login
+        </button>
+      </div>
+      <div style={{ textAlign: "left" }}>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={(e) => handleReset(e)}
+        >
+          Password reset
         </button>
       </div>
     </form>

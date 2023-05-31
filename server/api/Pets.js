@@ -42,6 +42,15 @@ router.get("/Pets/GetPet/:petId", async (req, res) => {
 });
 
 
+const checkToken = async (token) => {
+ 
+  const sql = "SELECT count(*) as count FROM users WHERE token = ?";
+  const result = await db.getAsync(sql, [token]);
+  const count = result.count;
+  return count>0;
+};
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, "../../client/src/static"));
@@ -60,8 +69,11 @@ router.post("/Pets/UpdatePet", upload.single("photo"), async (req, res) => {
   const species = req.body.species;
   const dateOfBirth = req.body.dateOfBirth;
   const photo = req.file ? req.file.filename : null;
-  const sql = "UPDATE pets SET name = ?, species = ?, dateOfBirth = ?, photo = ? WHERE id = ?";
+  const token = req.body.token;
+  const isValidToken = await checkToken(token);
 
+  if (isValidToken) {  
+  const sql = "UPDATE pets SET name = ?, species = ?, dateOfBirth = ?, photo = ? WHERE id = ?";
   try {
     await db.runAsync(sql, [name, species, dateOfBirth, photo, id]);
 
@@ -70,7 +82,16 @@ router.post("/Pets/UpdatePet", upload.single("photo"), async (req, res) => {
     console.error("Error updating pet:", error);
     res.status(500).json({ error: "Failed to update pet", detailedError: error.message });
   }
+  }
+  else {
+    res.status(500).json({ error: "No access"});
+  }
+
+
 });
+
+
+
 
 router.use((err, req, res, next) => {
   console.error("Error:", err);
@@ -86,7 +107,11 @@ router.post("/Pets/AddPet", upload.single("photo"), async (req, res) => {
   const photo = req.file ? req.file.filename : null;
   const sql1 = "SELECT id FROM users WHERE email = ?";
   const getOwner = await db.getAsync(sql1, id);
+  const token = req.body.token;
 
+  const isValidToken = await checkToken(token);
+
+  if (isValidToken) {  
   const sql = "INSERT INTO pets (name,ownerid,species,dateofbirth,isarchived,photo) VALUES (?,?,?,?,?,?)";
 
   try {
@@ -96,7 +121,12 @@ router.post("/Pets/AddPet", upload.single("photo"), async (req, res) => {
   } catch (error) {
     console.error("Error creating pet:", error);
     res.status(500).json({ error: "Failed to add a pet", detailedError: error.message });
+  }}
+  else {
+    res.status(500).json({ error: "No access"});
   }
+
+
 });
 
 // Error handling middleware

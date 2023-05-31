@@ -1,4 +1,4 @@
-create table roles(
+create table if not exists roles(
       id integer primary key NOT NULL,
       role varchar(320)
  );
@@ -7,7 +7,7 @@ INSERT INTO "roles" VALUES ('1','Admin');
 INSERT INTO "roles" VALUES ('2','Owner');
 INSERT INTO "roles" VALUES ('3','Doctor');
 
-create table users(
+create table if not exists users(
       id integer primary key NOT NULL,
       firstname varchar(120) NOT NULL,
       familyname varchar(120) NOT NULL,
@@ -22,7 +22,7 @@ create table users(
  );
 
 
-create table pets(
+create table if not exists pets(
       id integer primary key NOT NULL,
       name varchar(320) NOT NULL,
       ownerid integer,
@@ -33,7 +33,7 @@ create table pets(
       foreign key(ownerid) REFERENCES users(id)
 );
 
-create table appointments (
+create table if not exists appointments (
     id integer primary key NOT NULL,
     doctor_id integer,  
     owner_id integer,
@@ -45,7 +45,7 @@ create table appointments (
     foreign key(pet_id) REFERENCES pets(id)
 );
 
-create table health_records (
+create table if not exists health_records (
     id integer primary key NOT NULL,
     doctor_id integer,  
     pet_id integer,

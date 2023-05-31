@@ -12,6 +12,7 @@ function AddPet() {
     const species = document.getElementById("species").value;
     const dateOfBirth = document.getElementById("dateOfBirth").value;
     const photo = document.getElementById("photo").files[0];
+    const token = sessionStorage.getItem("token");
 
     const formData = new FormData();
     formData.append("email", email);
@@ -19,7 +20,7 @@ function AddPet() {
     formData.append("species", species);
     formData.append("dateOfBirth", dateOfBirth);
     formData.append("photo", photo);
-
+    formData.append("token", token);
     // Send a POST request to the server to update the pet data
     await fetch("http://localhost:3000/Pets/AddPet", {
       method: "POST",

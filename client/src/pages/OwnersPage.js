@@ -133,7 +133,7 @@ function OwnersPage() {
                     <div className="col-sm">
 
                       {userPets.map((pet) => (
-                        <div className="pet-box" key={pet.id}>
+                        <div className="pet-box" key={pet?.id}>
                           <h4>{pet.name}</h4>
                           <p>Species: {pet.species}</p>
                           <p>Date of Birth: {pet.dateofbirth}</p>

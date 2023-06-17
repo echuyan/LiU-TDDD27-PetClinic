@@ -12,8 +12,8 @@ const transporter = nodemailer.createTransport({
   port: 2525,
   secure: false,
   auth: {
-    user: 'MailerPetClinic',
-    pass: 'Sc4SKFw626sd7WTM',
+    user: 'fill in',
+    pass: 'fill in',
   },
 });
 
@@ -158,7 +158,7 @@ router.post("/Pets/MakeAppointment", async (req, res) => {
 
 
     const mailOptions = {
-      from: 'otustestchuyan@gmail.com',
+      from: 'fill the correct email here',
       to: ownersemail,
       subject: 'Your appointment details',
       text: 'Your pet has an appointment on ' + starttime,
